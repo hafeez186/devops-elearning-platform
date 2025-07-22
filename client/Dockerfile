@@ -1,11 +1,13 @@
 # Frontend Dockerfile
-FROM node:18-alpine as build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-RUN npm ci --only=production
+
+# Install ALL dependencies (needed for build process)
+RUN npm ci
 
 # Copy source code
 COPY . .
