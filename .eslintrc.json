@@ -44,7 +44,7 @@
     "coverage/",
     "*.config.js",
     "*.config.ts",
-    "client/build/",
-    "server/dist/"
+    "client/",
+    "server/"
   ]
 }
