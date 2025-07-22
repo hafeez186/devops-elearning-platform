@@ -1,0 +1,39 @@
+{
+  "name": "devops-elearning-platform",
+  "version": "1.0.0",
+  "description": "A comprehensive e-learning platform for Linux, DevOps, and CI/CD with real-time scenarios",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "test": "npm run test:client && npm run test:server",
+    "test:client": "cd client && npm test",
+    "test:server": "cd server && npm test",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "keywords": [
+    "e-learning",
+    "devops",
+    "linux",
+    "ci-cd",
+    "education",
+    "docker",
+    "kubernetes",
+    "jenkins",
+    "gitlab",
+    "github-actions"
+  ],
+  "author": "DevOps Learning Platform",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0"
+  }
+}

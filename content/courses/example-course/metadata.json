@@ -1,0 +1,37 @@
+{
+  "id": "docker-fundamentals",
+  "title": "Docker Container Fundamentals",
+  "description": "Learn containerization with Docker from basics to advanced concepts",
+  "category": "DevOps",
+  "difficulty": "Intermediate",
+  "duration": "12 hours",
+  "instructor": "DevOps Expert",
+  "tags": ["docker", "containers", "devops", "microservices"],
+  "prerequisites": ["Basic Linux knowledge", "Command line familiarity"],
+  "learningObjectives": [
+    "Understand containerization concepts",
+    "Create and manage Docker containers",
+    "Build custom Docker images",
+    "Deploy multi-container applications"
+  ],
+  "modules": [
+    {
+      "id": "module-1",
+      "title": "Docker Basics",
+      "lessons": ["01-introduction", "02-installation", "03-first-container"],
+      "duration": "3 hours"
+    },
+    {
+      "id": "module-2", 
+      "title": "Working with Images",
+      "lessons": ["04-images", "05-dockerfile", "06-building-images"],
+      "duration": "4 hours"
+    },
+    {
+      "id": "module-3",
+      "title": "Container Management",
+      "lessons": ["07-networking", "08-volumes", "09-docker-compose"],
+      "duration": "5 hours"
+    }
+  ]
+}
