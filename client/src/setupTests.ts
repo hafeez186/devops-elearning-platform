@@ -25,7 +25,6 @@ Object.defineProperty(window, 'matchMedia', {
   rootMargin = '';
   thresholds = [];
   
-  constructor() {}
   disconnect() {}
   observe() {}
   unobserve() {}
@@ -34,7 +33,6 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock ResizeObserver
 (global as any).ResizeObserver = class ResizeObserver {
-  constructor() {}
   disconnect() {}
   observe() {}
   unobserve() {}
