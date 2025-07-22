@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 import {
   ExpandMore,
-  PlayArrow,
   CheckCircle,
   RadioButtonUnchecked,
   Assignment,

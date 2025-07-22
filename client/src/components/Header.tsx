@@ -6,7 +6,6 @@ import {
   IconButton,
   Box,
   Button,
-  Avatar,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
