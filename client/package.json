@@ -2,7 +2,7 @@
   "name": "devops-elearning-client",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://YOURUSERNAME.github.io/devops-elearning-platform",
+  "homepage": "https://hafeez186.github.io/devops-elearning-platform",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",

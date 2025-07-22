@@ -1,6 +1,19 @@
 # DevOps E-Learning Platform
 
-A comprehensive e-learning platform focused on Linux, DevOps, and advanced CI/CD tools with real-time scenarios and hands-on labs.
+A comprehensive, production-ready e-learning platform focused on Linux, DevOps, and advanced CI/CD tools with real-time scenarios and hands-on labs.
+
+## 🌐 **Live Demo**
+**🚀 Website**: https://hafeez186.github.io/devops-elearning-platform/  
+**🔧 Admin Panel**: https://hafeez186.github.io/devops-elearning-platform/admin  
+**📊 CI/CD Pipeline**: https://github.com/hafeez186/devops-elearning-platform/actions  
+
+---
+
+## 🎯 **Quick Start**
+1. **Visit the live website** → https://hafeez186.github.io/devops-elearning-platform/
+2. **Explore courses** → Browse Linux, DevOps, and CI/CD content
+3. **Try admin features** → Visit `/admin` to see content management
+4. **Check the code** → Clone this repository to explore the implementation
 
 ## 🚀 Features
 
@@ -10,6 +23,29 @@ A comprehensive e-learning platform focused on Linux, DevOps, and advanced CI/CD
 - **Progress Tracking**: Monitor learning progress and achievements
 - **CI/CD Integration**: Built with modern DevOps practices
 - **Responsive Design**: Works seamlessly across all devices
+
+## 🛠️ **Technology Stack**
+
+### **Frontend**
+- ⚛️ **React 18** with TypeScript
+- 🎨 **Material-UI (MUI)** for modern design
+- 🧭 **React Router** for navigation
+- 📱 **Responsive Design** for all devices
+- 🎬 **Custom Video Player** component
+
+### **Backend**
+- 🟢 **Node.js** with Express.js
+- 📘 **TypeScript** for type safety
+- 🗄️ **MongoDB** for data storage
+- 🔐 **JWT Authentication** system
+- 📁 **Multer** for file uploads
+
+### **DevOps & Deployment**
+- 🐙 **GitHub Actions** for CI/CD pipeline
+- 🐳 **Docker** for containerization
+- 📄 **GitHub Pages** for hosting
+- 🔍 **ESLint** for code quality
+- 🧪 **Jest** for testing
 
 ## 📚 Course Content
 
@@ -35,16 +71,6 @@ A comprehensive e-learning platform focused on Linux, DevOps, and advanced CI/CD
 - **Kubernetes**: Container orchestration and management
 - **Terraform**: Infrastructure provisioning
 - **Ansible**: Configuration management
-
-## 🛠 Technology Stack
-
-- **Frontend**: React.js with TypeScript, Material-UI
-- **Backend**: Node.js with Express.js
-- **Database**: MongoDB with Mongoose
-- **Authentication**: JWT with bcrypt
-- **CI/CD**: GitHub Actions
-- **Containerization**: Docker & Docker Compose
-- **Testing**: Jest, React Testing Library, Supertest
 
 ## 🏗 Project Structure
 
