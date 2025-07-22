@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         </Typography>
         
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconButton color="inherit">
+          <IconButton color="inherit" aria-label="notifications">
             <NotificationsOutlined />
           </IconButton>
           

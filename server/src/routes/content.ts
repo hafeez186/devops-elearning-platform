@@ -7,14 +7,14 @@ const router = Router();
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _file, cb) => {
     const uploadPath = path.join(__dirname, '../uploads/videos');
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
     cb(null, uploadPath);
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
   }
@@ -25,7 +25,7 @@ const upload = multer({
   limits: {
     fileSize: 500 * 1024 * 1024, // 500MB limit
   },
-  fileFilter: (req, file, cb) => {
+  fileFilter: (_req, file, cb) => {
     const allowedTypes = ['video/mp4', 'video/webm', 'video/ogg'];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
@@ -51,22 +51,23 @@ router.post('/upload/video', upload.single('video'), (req, res) => {
       url: `/api/content/videos/${req.file.filename}`
     };
 
-    res.json({
+    return res.json({
       message: 'Video uploaded successfully',
       video: videoData
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to upload video' });
+    return res.status(500).json({ error: 'Failed to upload video' });
   }
 });
 
 // Serve video files
-router.get('/videos/:filename', (req, res) => {
+router.get('/videos/:filename', (req, res): void => {
   const filename = req.params.filename;
   const videoPath = path.join(__dirname, '../uploads/videos', filename);
   
   if (!fs.existsSync(videoPath)) {
-    return res.status(404).json({ error: 'Video not found' });
+    res.status(404).json({ error: 'Video not found' });
+    return;
   }
 
   const stat = fs.statSync(videoPath);
@@ -175,14 +176,14 @@ router.post('/lessons', (req, res) => {
 // Upload course materials (documents, images, etc.)
 const documentUpload = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
       const uploadPath = path.join(__dirname, '../uploads/documents');
       if (!fs.existsSync(uploadPath)) {
         fs.mkdirSync(uploadPath, { recursive: true });
       }
       cb(null, uploadPath);
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
       cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
@@ -207,29 +208,30 @@ router.post('/upload/document', documentUpload.single('document'), (req, res) =>
       url: `/api/content/documents/${req.file.filename}`
     };
 
-    res.json({
+    return res.json({
       message: 'Document uploaded successfully',
       document: documentData
     });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to upload document' });
+    return res.status(500).json({ error: 'Failed to upload document' });
   }
 });
 
 // Serve document files
-router.get('/documents/:filename', (req, res) => {
+router.get('/documents/:filename', (req, res): void => {
   const filename = req.params.filename;
   const documentPath = path.join(__dirname, '../uploads/documents', filename);
   
   if (!fs.existsSync(documentPath)) {
-    return res.status(404).json({ error: 'Document not found' });
+    res.status(404).json({ error: 'Document not found' });
+    return;
   }
 
   res.sendFile(documentPath);
 });
 
 // Get content statistics
-router.get('/stats', (req, res) => {
+router.get('/stats', (_req, res) => {
   try {
     // In a real app, this would query the database
     const stats = {
