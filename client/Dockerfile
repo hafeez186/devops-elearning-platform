@@ -1,4 +1,4 @@
-# Frontend Dockerfile
+# Multi-stage build for React app
 FROM node:18-alpine AS build
 
 WORKDIR /app
@@ -6,13 +6,17 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies (needed for build process)
-RUN npm ci
+# Install all dependencies (needed for build)
+RUN npm ci --include=dev
 
 # Copy source code
 COPY . .
 
-# Build the application
+# Set environment for production build
+ENV NODE_ENV=production
+ENV GENERATE_SOURCEMAP=false
+
+# Build the app
 RUN npm run build
 
 # Production stage
