@@ -115,8 +115,8 @@ docker build -t test-frontend ./client
 docker build -t test-backend ./server
 
 # Test local builds
-cd client && npm run build
-cd ../server && npm run build
+cd client ; npm run build
+cd ../server ; npm run build
 ```
 
 ## Status: ✅ RESOLVED
