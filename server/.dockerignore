@@ -11,10 +11,8 @@ src/**/*.test.ts
 src/**/__tests__/
 src/setupTests.ts
 
-# Development files
-src/**/*.ts
-*.ts
-!dist
+# Build output (will be generated)
+dist
 
 # Environment files
 .env.local
