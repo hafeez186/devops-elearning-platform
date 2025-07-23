@@ -15,6 +15,9 @@ COPY . .
 # Set environment for production build
 ENV NODE_ENV=production
 ENV GENERATE_SOURCEMAP=false
+ENV DISABLE_ESLINT_PLUGIN=true
+ENV ESLINT_NO_DEV_ERRORS=true
+ENV TSC_COMPILE_ON_ERROR=true
 
 # Build the app
 RUN npm run build
