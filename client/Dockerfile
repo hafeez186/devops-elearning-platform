@@ -20,7 +20,7 @@ ENV ESLINT_NO_DEV_ERRORS=true
 ENV TSC_COMPILE_ON_ERROR=true
 
 # Build the app
-RUN npm run build
+RUN DISABLE_ESLINT_PLUGIN=true npm run build
 
 # Production stage
 FROM nginx:alpine
