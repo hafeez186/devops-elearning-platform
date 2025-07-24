@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { app } from './app';
+import { prisma } from './lib/prisma';
 
 // Load environment variables
 dotenv.config();
@@ -10,11 +10,10 @@ const PORT = process.env.PORT || 5000;
 // Database connection
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/devops-elearning';
-    await mongoose.connect(mongoURI);
-    console.log('✅ MongoDB connected successfully');
+    await prisma.$connect();
+    console.log('✅ PostgreSQL connected successfully');
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error('❌ PostgreSQL connection error:', error);
     process.exit(1);
   }
 };
@@ -48,13 +47,15 @@ process.on('uncaughtException', (err: Error) => {
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
   console.log('👋 SIGTERM signal received: closing HTTP server');
+  await prisma.$disconnect();
   process.exit(0);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
   console.log('👋 SIGINT signal received: closing HTTP server');
+  await prisma.$disconnect();
   process.exit(0);
 });
 
