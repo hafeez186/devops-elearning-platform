@@ -15,26 +15,34 @@ services:
       - "5000:5000"
     environment:
       - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongo:27017/devops-elearning
+      - DATABASE_URL=postgresql://postgres:password123@postgres:5432/devops_elearning?schema=public
       - JWT_SECRET=08312b702203bdcda1f219d3940aa657370db5e8a2fc1f0b9da046fe7c50c073f977b772e30ac2ccf79dd6c75eaf64c1583852d3f7ca1073acd7dc3f51d3ee1a9
       - PORT=5000
       - CORS_ORIGIN=http://localhost:3000
     depends_on:
-      - mongo
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
-  mongo:
-    image: mongo:latest
+  postgres:
+    image: postgres:15-alpine
     ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    restart: unless-stopped
+      - "5432:5432"
     environment:
-      - MONGO_INITDB_DATABASE=devops-elearning
+      POSTGRES_DB: devops_elearning
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  mongo-data:
+  postgres-data:
 
 networks:
   default:

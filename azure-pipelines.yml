@@ -84,12 +84,14 @@ stages:
           - script: |
               cd server
               npm ci
+              npx prisma generate
               npm run lint
               npm run test -- --coverage --watchAll=false --testResultsProcessor=jest-junit
               npm run build
-            displayName: 'Backend: Install, Lint, Test, Build'
+            displayName: 'Backend: Install, Generate Prisma, Lint, Test, Build'
             env:
               CI: true
+              DATABASE_URL: postgresql://test:test@localhost:5432/test?schema=public
           
           - task: PublishTestResults@1
             condition: succeededOrFailed()
@@ -195,7 +197,7 @@ stages:
                         --name devops-backend \
                         --resource-group $(resourceGroupName) \
                         --image $(containerRegistry)/$(imageRepository)-backend:$(tag) \
-                        --env-vars NODE_ENV=production MONGODB_URI="$(MONGODB_URI)" JWT_SECRET="$(JWT_SECRET)"
+                        --env-vars NODE_ENV=production DATABASE_URL="$(DATABASE_URL)" JWT_SECRET="$(JWT_SECRET)"
                       
                       az containerapp update \
                         --name devops-frontend \
