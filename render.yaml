@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: devops-elearning-backend
+    env: node
+    buildCommand: cd server && npm ci && npm run build
+    startCommand: cd server && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+    
+  - type: web
+    name: devops-elearning-frontend
+    env: static
+    buildCommand: cd client && npm ci && npm run build
+    staticPublishPath: client/build

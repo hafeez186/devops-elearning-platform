@@ -29,6 +29,8 @@
     "build:prod": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
+    "lint": "eslint src --ext .ts,.tsx --max-warnings 0",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
