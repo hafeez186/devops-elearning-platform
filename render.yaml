@@ -1,7 +1,8 @@
 services:
+  # Backend API Server
   - type: web
     name: devops-elearning-backend
-    env: node
+    runtime: node
     buildCommand: cd server && npm ci && npm run build
     startCommand: cd server && npm start
     healthCheckPath: /health
@@ -10,9 +11,34 @@ services:
         value: production
       - key: PORT
         value: 5000
+      - key: DATABASE_URL
+        sync: false # Set this manually in Render dashboard - PostgreSQL connection string
+      - key: JWT_SECRET
+        sync: false # Set this manually in Render dashboard for security
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGIN
+        value: https://devops-elearning-frontend.onrender.com
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: MAX_FILE_SIZE
+        value: 10485760
     
+  # Frontend Static Site
   - type: web
     name: devops-elearning-frontend
-    env: static
-    buildCommand: cd client && npm ci && npm run build
+    runtime: static
+    buildCommand: cd client && npm ci && REACT_APP_API_URL=https://devops-elearning-backend.onrender.com npm run build
     staticPublishPath: client/build
+    headers:
+      - path: "/*"
+        name: "X-Frame-Options"
+        value: "DENY"
+      - path: "/*"
+        name: "X-Content-Type-Options"
+        value: "nosniff"
+
+# Note: PostgreSQL database needs to be created separately as Render doesn't support
+# database services in YAML config. Create a PostgreSQL service manually in Render dashboard.
