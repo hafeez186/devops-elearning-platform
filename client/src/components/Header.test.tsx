@@ -1,12 +1,15 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '../contexts/AuthContext';
 import Header from './Header';
 
 const renderWithRouter = (component: React.ReactElement) => {
   return render(
     <BrowserRouter>
-      {component}
+      <AuthProvider>
+        {component}
+      </AuthProvider>
     </BrowserRouter>
   );
 };

@@ -4,6 +4,42 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+// Suppress React DOM test utils deprecation warning and React Router warnings
+const originalError = console.error;
+const originalWarn = console.warn;
+
+beforeAll(() => {
+  console.error = (...args: any[]) => {
+    if (
+      typeof args[0] === 'string' && (
+        args[0].includes('ReactDOMTestUtils.act is deprecated') ||
+        args[0].includes('Warning: `ReactDOMTestUtils.act`')
+      )
+    ) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+
+  console.warn = (...args: any[]) => {
+    if (
+      typeof args[0] === 'string' && (
+        args[0].includes('React Router Future Flag Warning') ||
+        args[0].includes('v7_startTransition') ||
+        args[0].includes('v7_relativeSplatPath')
+      )
+    ) {
+      return;
+    }
+    originalWarn.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+  console.warn = originalWarn;
+});
+
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
