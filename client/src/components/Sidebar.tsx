@@ -22,30 +22,40 @@ import {
   AdminPanelSettings,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
 }
 
-const menuItems = [
-  { text: 'Home', icon: <Home />, path: '/' },
-  { text: 'Courses', icon: <School />, path: '/courses' },
-  { text: 'Progress', icon: <Timeline />, path: '/progress' },
-  { text: 'Profile', icon: <Person />, path: '/profile' },
-  { text: 'Admin Panel', icon: <AdminPanelSettings />, path: '/admin' },
-];
-
-const courseCategories = [
-  { text: 'Linux Fundamentals', icon: <Computer />, path: '/courses/linux' },
-  { text: 'DevOps Practices', icon: <Build />, path: '/courses/devops' },
-  { text: 'CI/CD Tools', icon: <Code />, path: '/courses/cicd' },
-  { text: 'Cloud Platforms', icon: <Cloud />, path: '/courses/cloud' },
-];
-
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAdmin } = useAuth();
+
+  // Base menu items (available to all users)
+  const baseMenuItems = [
+    { text: 'Home', icon: <Home />, path: '/' },
+    { text: 'Courses', icon: <School />, path: '/courses' },
+    { text: 'Progress', icon: <Timeline />, path: '/progress' },
+    { text: 'Profile', icon: <Person />, path: '/profile' },
+  ];
+
+  // Admin-only menu items
+  const adminMenuItems = [
+    { text: 'Admin Panel', icon: <AdminPanelSettings />, path: '/admin' },
+  ];
+
+  // Combine menu items based on user role
+  const menuItems = isAdmin ? [...baseMenuItems, ...adminMenuItems] : baseMenuItems;
+
+  const courseCategories = [
+    { text: 'Linux Fundamentals', icon: <Computer />, path: '/courses/linux' },
+    { text: 'DevOps Practices', icon: <Build />, path: '/courses/devops' },
+    { text: 'CI/CD Tools', icon: <Code />, path: '/courses/cicd' },
+    { text: 'Cloud Platforms', icon: <Cloud />, path: '/courses/cloud' },
+  ];
 
   const handleNavigation = (path: string) => {
     navigate(path);

@@ -6,19 +6,29 @@ import {
   IconButton,
   Box,
   Button,
+  Chip,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
   School,
   NotificationsOutlined,
   AccountCircle,
+  ExitToApp,
+  Security,
 } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
 
 interface HeaderProps {
   onMenuClick: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
+  const { isAdmin, user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
@@ -38,6 +48,17 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         </Typography>
         
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {isAdmin && (
+            <Chip
+              icon={<Security />}
+              label="Admin"
+              color="secondary"
+              variant="outlined"
+              size="small"
+              sx={{ color: 'white', borderColor: 'white' }}
+            />
+          )}
+          
           <IconButton color="inherit" aria-label="notifications">
             <NotificationsOutlined />
           </IconButton>
@@ -47,8 +68,19 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             startIcon={<AccountCircle />}
             sx={{ textTransform: 'none' }}
           >
-            Profile
+            {user?.firstName || 'Profile'}
           </Button>
+
+          {isAdmin && (
+            <Button
+              color="inherit"
+              startIcon={<ExitToApp />}
+              onClick={handleLogout}
+              sx={{ textTransform: 'none', ml: 1 }}
+            >
+              Logout
+            </Button>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

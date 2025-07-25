@@ -6,25 +6,45 @@ import {
   Container,
   Paper,
   Alert,
+  Chip,
 } from '@mui/material';
-import { AdminPanelSettings } from '@mui/icons-material';
+import { AdminPanelSettings, Security, Person } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
 import ContentAdmin from '../components/ContentAdmin';
 
 const AdminPage: React.FC = () => {
   const [adminOpen, setAdminOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Box display="flex" alignItems="center" mb={3}>
           <AdminPanelSettings sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
-          <Typography variant="h3" component="h1" gutterBottom>
-            Admin Panel
-          </Typography>
+          <Box>
+            <Typography variant="h3" component="h1" gutterBottom>
+              Admin Panel
+            </Typography>
+            <Box display="flex" alignItems="center" gap={1}>
+              <Chip
+                icon={<Security />}
+                label="Authenticated Admin"
+                color="success"
+                size="small"
+              />
+              <Chip
+                icon={<Person />}
+                label={`Welcome, ${user?.firstName || user?.username}`}
+                variant="outlined"
+                size="small"
+              />
+            </Box>
+          </Box>
         </Box>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          Welcome to the Content Management System! Here you can upload videos, create courses, manage lessons, and organize your e-learning content.
+        <Alert severity="success" sx={{ mb: 3 }}>
+          🎉 <strong>Access Granted!</strong> You are now logged in as an administrator. 
+          Use the content management interface below to manage your e-learning platform.
         </Alert>
 
         <Box sx={{ mt: 4 }}>
