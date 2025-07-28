@@ -17,8 +17,13 @@ const server = createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:3000",
+      "https://devops-elearning-frontend.onrender.com",
+      "http://localhost:3000"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 

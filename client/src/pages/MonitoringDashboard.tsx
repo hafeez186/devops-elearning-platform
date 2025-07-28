@@ -50,7 +50,7 @@ ChartJS.register(
   Filler
 );
 
-const SOCKET_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+const SOCKET_URL = process.env.REACT_APP_SERVER_URL || 'https://devops-elearning-backend.onrender.com';
 const MAX_METRICS_DISPLAY = 20; // Show last 20 data points in chart
 
 export const MonitoringDashboard: React.FC = () => {
