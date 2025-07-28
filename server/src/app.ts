@@ -12,6 +12,7 @@ import userRoutes from './routes/users';
 import progressRoutes from './routes/progress';
 import labRoutes from './routes/labs';
 import contentRoutes from './routes/content';
+import monitoringRoutes from './routes/monitoring';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -60,6 +61,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/labs', labRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/monitoring', monitoringRoutes);
 
 // API documentation endpoint
 app.get('/api', (_req, res) => {

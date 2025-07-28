@@ -12,6 +12,7 @@ import Lab from './pages/Lab';
 import Progress from './pages/Progress';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
+import MonitoringDashboard from './pages/MonitoringDashboard';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -43,6 +44,7 @@ function App() {
             <Route path="/lab/:id" element={<Lab />} />
             <Route path="/progress" element={<Progress />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/monitoring" element={<MonitoringDashboard />} />
             <Route 
               path="/admin" 
               element={

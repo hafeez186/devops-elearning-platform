@@ -20,6 +20,7 @@ import {
   Build,
   Cloud,
   AdminPanelSettings,
+  Dashboard,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -44,6 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
 
   // Admin-only menu items
   const adminMenuItems = [
+    { text: 'Monitoring', icon: <Dashboard />, path: '/monitoring' },
     { text: 'Admin Panel', icon: <AdminPanelSettings />, path: '/admin' },
   ];
 
