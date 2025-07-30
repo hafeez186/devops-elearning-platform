@@ -1,5 +1,16 @@
 import { Request, Response } from 'express';
-import aiService, { CourseGenerationRequest } from '../services/AIService';
+
+// Use require for AIService to avoid module resolution issues
+const aiService = require('../services/AIService').default;
+
+export interface CourseGenerationRequest {
+  topic: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  duration: 'short' | 'medium' | 'long';
+  focus: string[];
+  includeHandsOn: boolean;
+  includeQuizzes: boolean;
+}
 
 export class AIController {
   /**
