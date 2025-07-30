@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import AdminLogin from './components/AdminLogin';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import AIAssistant from './components/AI/AIAssistant';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
 import CourseDetail from './pages/CourseDetail';
@@ -13,6 +14,8 @@ import Progress from './pages/Progress';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
 import MonitoringDashboard from './pages/MonitoringDashboard';
+import AIAnalyticsPage from './pages/AIAnalyticsPage';
+import CourseGeneratorPage from './pages/CourseGeneratorPage';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -45,6 +48,8 @@ function App() {
             <Route path="/progress" element={<Progress />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/monitoring" element={<MonitoringDashboard />} />
+            <Route path="/ai-analytics" element={<AIAnalyticsPage />} />
+            <Route path="/course-generator" element={<CourseGeneratorPage />} />
             <Route 
               path="/admin" 
               element={
@@ -54,6 +59,9 @@ function App() {
               } 
             />
           </Routes>
+          
+          {/* AI Assistant floating button */}
+          <AIAssistant />
         </Box>
       </Box>
     </AuthProvider>

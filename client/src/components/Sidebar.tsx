@@ -21,6 +21,8 @@ import {
   Cloud,
   AdminPanelSettings,
   Dashboard,
+  Psychology,
+  AutoAwesome,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -46,6 +48,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   // Admin-only menu items
   const adminMenuItems = [
     { text: 'Monitoring', icon: <Dashboard />, path: '/monitoring' },
+    { text: 'AI Analytics', icon: <Psychology />, path: '/ai-analytics' },
+    { text: 'Course Generator', icon: <AutoAwesome />, path: '/course-generator' },
     { text: 'Admin Panel', icon: <AdminPanelSettings />, path: '/admin' },
   ];
 
