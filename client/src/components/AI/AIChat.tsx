@@ -40,7 +40,7 @@ const AIChat: React.FC<AIChatProps> = ({ isOpen, onClose, context = 'general' })
         context
       }]);
     }
-  }, [isOpen, context]);
+  }, [isOpen, context, messages.length]);
 
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
