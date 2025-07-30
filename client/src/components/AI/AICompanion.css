@@ -1,0 +1,469 @@
+.ai-companion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ai-companion-modal {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.companion-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companion-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.companion-avatar {
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.companion-title h3 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.companion-title p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.9em;
+}
+
+.companion-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.progress-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.progress-card {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 20px;
+  margin: 0;
+}
+
+.progress-card h4 {
+  margin: 0 0 15px 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.9;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.companion-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f8fafc;
+  max-height: 400px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  animation: slideIn 0.3s ease-out;
+}
+
+.message.user {
+  align-self: flex-end;
+}
+
+.message.companion {
+  align-self: flex-start;
+}
+
+.message-content {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.message.user .message-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.message.companion .message-content {
+  background: white;
+  border: 2px solid #e2e8f0;
+}
+
+/* Emotional tone styling */
+.message.tone-encouraging .message-content {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+}
+
+.message.tone-motivational .message-content {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+}
+
+.message.tone-empathetic .message-content {
+  border-color: #ec4899;
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+}
+
+.message.tone-neutral .message-content {
+  border-color: #6b7280;
+  background: white;
+}
+
+.message-content p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.personalized-elements {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.past-learning,
+.motivation {
+  background: rgba(59, 130, 246, 0.1);
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 6px 0;
+  border-left: 3px solid #3b82f6;
+}
+
+.motivation {
+  background: rgba(16, 185, 129, 0.1);
+  border-left-color: #10b981;
+}
+
+.proactive-help {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.help-item {
+  background: rgba(245, 158, 11, 0.1);
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 6px 0;
+  border-left: 3px solid #f59e0b;
+}
+
+.break-suggestion {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+}
+
+.alternative-explanation {
+  background: rgba(139, 92, 246, 0.1);
+  border-left-color: #8b5cf6;
+}
+
+.related-topics {
+  background: rgba(6, 182, 212, 0.1);
+  border-left-color: #06b6d4;
+}
+
+.message-time {
+  font-size: 0.75em;
+  color: #64748b;
+  margin-top: 8px;
+  align-self: flex-end;
+}
+
+.message.user .message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 15px 20px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #64748b;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.companion-input {
+  background: white;
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.input-container {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.input-container textarea {
+  flex: 1;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 12px 16px;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  max-height: 120px;
+}
+
+.input-container textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-container textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.send-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.send-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.input-help {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.input-help small {
+  color: #64748b;
+  font-size: 0.75em;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .ai-companion-overlay {
+    padding: 10px;
+  }
+
+  .ai-companion-modal {
+    max-height: 90vh;
+    border-radius: 15px;
+  }
+
+  .companion-header {
+    padding: 15px;
+  }
+
+  .companion-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .companion-title h3 {
+    font-size: 1.3em;
+  }
+
+  .companion-messages {
+    padding: 15px;
+    max-height: 300px;
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  .progress-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .stat-value {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .companion-title {
+    gap: 10px;
+  }
+
+  .companion-title h3 {
+    font-size: 1.1em;
+  }
+
+  .companion-title p {
+    font-size: 0.8em;
+  }
+
+  .companion-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .progress-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .message-content {
+    padding: 12px 16px;
+  }
+}

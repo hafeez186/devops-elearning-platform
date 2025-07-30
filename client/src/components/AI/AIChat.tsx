@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AICompanion from './AICompanion';
 import './AIChat.css';
 
 interface Message {
@@ -19,7 +20,11 @@ const AIChat: React.FC<AIChatProps> = ({ isOpen, onClose, context = 'general' })
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showCompanion, setShowCompanion] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Generate a demo user ID (in production, get from auth context)
+  const userId = 'demo-user-' + Math.random().toString(36).substr(2, 9);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -115,9 +120,18 @@ const AIChat: React.FC<AIChatProps> = ({ isOpen, onClose, context = 'general' })
                 <div className="ai-status-indicator"></div>
                 <h3>AI Learning Assistant</h3>
               </div>
-              <button onClick={onClose} className="ai-chat-close">
-                <span>&times;</span>
-              </button>
+              <div className="ai-chat-controls">
+                <button 
+                  onClick={() => setShowCompanion(true)}
+                  className="companion-mode-btn"
+                  title="Open AI Companion"
+                >
+                  🤖 Companion Mode
+                </button>
+                <button onClick={onClose} className="ai-chat-close">
+                  <span>&times;</span>
+                </button>
+              </div>
             </div>
 
             <div className="ai-chat-messages">
@@ -178,6 +192,14 @@ const AIChat: React.FC<AIChatProps> = ({ isOpen, onClose, context = 'general' })
           </div>
         </div>
       )}
+
+      {/* AI Companion Modal */}
+      <AICompanion 
+        isOpen={showCompanion}
+        onClose={() => setShowCompanion(false)}
+        currentTopic={context}
+        userId={userId}
+      />
     </>
   );
 };

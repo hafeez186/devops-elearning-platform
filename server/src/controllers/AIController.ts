@@ -285,4 +285,219 @@ export class AIController {
       });
     }
   }
+
+  /**
+   * Get personalized AI companion response
+   */
+  async getCompanionResponse(req: Request, res: Response): Promise<void> {
+    try {
+      const { message, currentTopic, userId } = req.body;
+
+      if (!message || !userId) {
+        res.status(400).json({
+          success: false,
+          error: 'Message and userId are required'
+        });
+        return;
+      }
+
+      const companionResponse = await aiService.getCompanionResponse(
+        userId, 
+        message, 
+        currentTopic || 'general'
+      );
+
+      res.json({
+        success: true,
+        response: companionResponse,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Companion Response Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get companion response'
+      });
+    }
+  }
+
+  /**
+   * Update learning session data
+   */
+  async updateLearningSession(req: Request, res: Response): Promise<void> {
+    try {
+      const { userId, sessionData } = req.body;
+
+      if (!userId || !sessionData) {
+        res.status(400).json({
+          success: false,
+          error: 'UserId and sessionData are required'
+        });
+        return;
+      }
+
+      // Validate session data structure
+      const requiredFields = ['sessionId', 'topic', 'duration', 'completed'];
+      for (const field of requiredFields) {
+        if (!(field in sessionData)) {
+          res.status(400).json({
+            success: false,
+            error: `Missing required field: ${field}`
+          });
+          return;
+        }
+      }
+
+      // Add timestamp if not provided
+      const session = {
+        ...sessionData,
+        timestamp: sessionData.timestamp || new Date(),
+        struggledWith: sessionData.struggledWith || [],
+        masteredConcepts: sessionData.masteredConcepts || [],
+        questionsAsked: sessionData.questionsAsked || []
+      };
+
+      aiService.updateLearningMemory(userId, session);
+
+      res.json({
+        success: true,
+        message: 'Learning session updated successfully',
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Update Learning Session Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to update learning session'
+      });
+    }
+  }
+
+  /**
+   * Get user's learning progress and insights
+   */
+  async getLearningProgress(req: Request, res: Response): Promise<void> {
+    try {
+      const { userId } = req.params;
+
+      if (!userId) {
+        res.status(400).json({
+          success: false,
+          error: 'UserId is required'
+        });
+        return;
+      }
+
+      // For demo purposes, return mock learning progress data
+      // In production, this would fetch from the learning memory
+      const progressData = {
+        userId,
+        overallProgress: {
+          totalLearningTime: 450, // minutes
+          currentStreak: 12,
+          longestStreak: 25,
+          completedTopics: 23,
+          totalTopics: 35
+        },
+        recentActivity: [
+          {
+            date: '2025-07-31',
+            topics: ['Docker Compose', 'Container Networking'],
+            timeSpent: 45,
+            completed: true
+          },
+          {
+            date: '2025-07-30',
+            topics: ['Kubernetes Pods', 'Services'],
+            timeSpent: 60,
+            completed: true
+          },
+          {
+            date: '2025-07-29',
+            topics: ['CI/CD Pipelines'],
+            timeSpent: 30,
+            completed: false
+          }
+        ],
+        strengths: ['Containerization', 'Version Control', 'Linux Commands'],
+        weakAreas: ['Kubernetes Networking', 'Security Practices'],
+        learningStyle: 'hands-on',
+        personalityPreference: 'encouraging',
+        nextRecommendations: [
+          'Focus on Kubernetes networking fundamentals',
+          'Practice with security scanning tools',
+          'Try advanced Docker features'
+        ],
+        motivationalMessage: 'Amazing 12-day streak! You\'re becoming a DevOps expert!'
+      };
+
+      res.json({
+        success: true,
+        progress: progressData,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Get Learning Progress Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to get learning progress'
+      });
+    }
+  }
+
+  /**
+   * Update user's learning preferences
+   */
+  async updateLearningPreferences(req: Request, res: Response): Promise<void> {
+    try {
+      const { userId } = req.params;
+      const { preferences } = req.body;
+
+      if (!userId || !preferences) {
+        res.status(400).json({
+          success: false,
+          error: 'UserId and preferences are required'
+        });
+        return;
+      }
+
+      // Validate preferences
+      const validExplanationStyles = ['visual', 'code', 'analogy', 'step-by-step'];
+      const validPersonalityPreferences = ['encouraging', 'direct', 'humorous', 'professional'];
+
+      if (preferences.explanationStyle && 
+          !validExplanationStyles.includes(preferences.explanationStyle)) {
+        res.status(400).json({
+          success: false,
+          error: 'Invalid explanation style'
+        });
+        return;
+      }
+
+      if (preferences.personalityPreference && 
+          !validPersonalityPreferences.includes(preferences.personalityPreference)) {
+        res.status(400).json({
+          success: false,
+          error: 'Invalid personality preference'
+        });
+        return;
+      }
+
+      // In production, this would update the user's learning memory
+      // For demo, we'll just return success
+
+      res.json({
+        success: true,
+        message: 'Learning preferences updated successfully',
+        updatedPreferences: preferences,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error('Update Learning Preferences Error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Failed to update learning preferences'
+      });
+    }
+  }
 }

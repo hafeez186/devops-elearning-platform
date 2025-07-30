@@ -25,4 +25,10 @@ router.get('/recommendations/:userId', aiController.getRecommendations.bind(aiCo
 // System Insights
 router.get('/system-insights', aiController.getSystemInsights.bind(aiController));
 
+// AI Learning Companion Routes
+router.post('/companion', aiController.getCompanionResponse.bind(aiController));
+router.post('/learning-session', aiController.updateLearningSession.bind(aiController));
+router.get('/learning-progress/:userId', aiController.getLearningProgress.bind(aiController));
+router.put('/learning-preferences/:userId', aiController.updateLearningPreferences.bind(aiController));
+
 export default router;
