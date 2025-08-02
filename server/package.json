@@ -23,7 +23,7 @@
     "nodejs",
     "express"
   ],
-  "author": "DevOps Learning Platform",
+  "author": "AI Learning Based Platform",
   "license": "MIT",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

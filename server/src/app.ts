@@ -14,6 +14,7 @@ import labRoutes from './routes/labs';
 import contentRoutes from './routes/content';
 import monitoringRoutes from './routes/monitoring';
 import aiRoutes from './routes/ai';
+import aiKnowledgeRoutes from './routes/aiKnowledge';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -64,6 +65,7 @@ app.use('/api/labs', labRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/monitoring', monitoringRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/ai-knowledge', aiKnowledgeRoutes);
 
 // API documentation endpoint
 app.get('/api', (_req, res) => {
@@ -79,6 +81,7 @@ app.get('/api', (_req, res) => {
       content: '/api/content',
       monitoring: '/api/monitoring',
       ai: '/api/ai',
+      'ai-knowledge': '/api/ai-knowledge',
     },
     docs: '/api/docs',
   });
