@@ -37,6 +37,8 @@ interface AnalyticsData {
   };
 }
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const AIAnalytics: React.FC = () => {
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,7 +51,7 @@ const AIAnalytics: React.FC = () => {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/ai/analytics');
+      const response = await fetch(`${API_BASE_URL}/ai/analytics`);
       const data = await response.json();
 
       if (data.success) {
