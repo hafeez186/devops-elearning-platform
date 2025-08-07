@@ -60,12 +60,19 @@ interface Course {
   progress: number;
 }
 
+const realWorldScenarios: Record<string, string> = {
+  'module-1': 'Set up a Linux VM and create user accounts, then automate user creation with a shell script.',
+  'module-2': 'Navigate a complex directory structure and automate file organization using bash scripts.',
+  'module-3': 'Secure a Linux system by setting correct file permissions and auditing user access.'
+};
+
 const CourseDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [currentLesson, setCurrentLesson] = useState<Lesson | null>(null);
   const [expandedModule, setExpandedModule] = useState<string | false>('module-1');
+  const [assignedScenarios, setAssignedScenarios] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // In a real app, this would fetch from an API
@@ -198,6 +205,17 @@ const CourseDetail: React.FC = () => {
         });
       });
       setCourse(updatedCourse);
+
+      // Check for module completion and assign scenario
+      updatedCourse.modules.forEach(module => {
+        const allCompleted = module.lessons.every(lesson => lesson.completed);
+        if (allCompleted && !assignedScenarios[module.id]) {
+          setAssignedScenarios(prev => ({
+            ...prev,
+            [module.id]: realWorldScenarios[module.id] || 'Apply your knowledge to a real-world project!'
+          }));
+        }
+      });
 
       // Find next lesson
       let nextLesson: Lesson | null = null;
@@ -388,6 +406,15 @@ const CourseDetail: React.FC = () => {
                         </ListItem>
                       ))}
                     </List>
+                    {/* Show assigned scenario if module is completed */}
+                    {assignedScenarios[module.id] && (
+                      <Box sx={{ mt: 2, p: 2, bgcolor: '#f5f5f5', borderRadius: 2 }}>
+                        <Typography variant="subtitle2" color="primary">
+                          Real-World Scenario:
+                        </Typography>
+                        <Typography variant="body2">{assignedScenarios[module.id]}</Typography>
+                      </Box>
+                    )}
                   </AccordionDetails>
                 </Accordion>
               ))}
