@@ -16,6 +16,7 @@ import Admin from './pages/Admin';
 import MonitoringDashboard from './pages/MonitoringDashboard';
 import AIAnalyticsPage from './pages/AIAnalyticsPage';
 import CourseGeneratorPage from './pages/CourseGeneratorPage';
+import RealTimeAIDashboard from './pages/RealTimeAIDashboard';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
@@ -49,6 +50,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/monitoring" element={<MonitoringDashboard />} />
             <Route path="/ai-analytics" element={<AIAnalyticsPage />} />
+            <Route path="/ai-dashboard" element={<RealTimeAIDashboard />} />
             <Route path="/course-generator" element={<CourseGeneratorPage />} />
             <Route 
               path="/admin" 
