@@ -30,6 +30,7 @@ import {
 } from '@mui/icons-material';
 import { useParams, useNavigate } from 'react-router-dom';
 import VideoPlayer from '../components/VideoPlayer';
+import AIRecommendations from '../components/AIRecommendations';
 
 interface Lesson {
   id: string;
@@ -420,7 +421,12 @@ const CourseDetail: React.FC = () => {
               ))}
               
               <Divider sx={{ my: 2 }} />
-              
+
+              {/* AI Recommendations: show after course completion */}
+              {course.completed && (
+                <AIRecommendations userId={userId} moduleId={course.id} />
+              )}
+
               <Typography variant="body2" color="text.secondary">
                 Instructor: {course.instructor}
               </Typography>
